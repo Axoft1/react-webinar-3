@@ -23,10 +23,20 @@ function App({store}) {
         <div className='List'>{
           list.map(item =>
             <div key={item.code} className='List-item'>
-              <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+              <div className={'Item' + (item.selected ? ' Item_selected' : '')}>
+              <div className='Item-code'>{item.code}</div>
+                <div className='Item-title' onClick={() => store.selectItem(item.code)}>
+                  {item.title +
+                    (item.timesSelected > 0
+                      ? ' | Выделяли ' +
+                      item.timesSelected +
+                      (item.timesSelected % 10 >= 2 &&
+                        item.timesSelected % 10 <= 4 &&
+                        (item.timesSelected % 100 < 10 || item.timesSelected % 100 >= 20)
+                        ? ' раза'
+                        : ' раз')
+                      : '')}
+                </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
