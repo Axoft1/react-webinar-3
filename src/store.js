@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -7,13 +7,13 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-  }
 
+  }
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
    * @returns {Function} Функция отписки
-   */
+  */
   subscribe(listener) {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
@@ -25,15 +25,24 @@ class Store {
   /**
    * Выбор состояния
    * @returns {Object}
-   */
+  */
   getState() {
     return this.state;
   }
 
   /**
+     * Получить итоговую цену
+     * @returns {Number}
+    */
+  getPrice() {
+    console.log(this.state.basket);
+    return Object.keys(this.state.basket).reduce((previos, key) => { return previos + this.state.basket[key].price * this.state.basket[key].count }, 0)
+  }
+
+  /**
    * Установка состояния
    * @param newState {Object}
-   */
+  */
   setState(newState) {
     this.state = newState;
     // Вызываем всех слушателей
@@ -46,19 +55,49 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }]
     })
   };
 
   /**
-   * Удаление записи по коду
+   * Добавление в корзину
+   * @param item
+   */
+  addBasket(item) {
+    const carrent = this.state.basket.find(i => i.code === item.code)
+    if (carrent) {
+      this.setState({
+        ...this.state,
+        basket: this.state.basket.map(item => {
+          if (item.code == carrent.code){    
+            return {...item,         
+            count: item.count+1}
+          }
+          return item
+        } )        
+      })
+    } else {
+      this.setState({
+        ...this.state,
+        basket: [...this.state.basket, {
+          code: item.code, price: item.price, title: item.title, count: 1
+        }]
+      })
+    }
+
+
+  };
+
+  /**
+   * Удаление из корзины по коду
    * @param code
    */
   deleteItem(code) {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      basket: this.state.basket.filter(item => item.code !== code)
+      // basket: this.state.basket.filter(item => item.count > 1 ?item.count -= 1 : item.code !== code)
     })
   };
 
@@ -79,7 +118,7 @@ class Store {
           };
         }
         // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
+        return item.selected ? { ...item, selected: false } : item;
       })
     })
   }
