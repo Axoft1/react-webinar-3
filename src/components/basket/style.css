@@ -9,16 +9,17 @@
 
 .Basket-item {
   border-bottom: 1px dashed #ccc;
+  padding: 0;
 }
 
-.Basket-wrapper {
+/* .Basket-wrapper {
   width: 100%;
   margin: auto 30px;
   border-radius: 10px;
   background-color: white;
-}
+} */
 
-.Basket-title {
+/* .Basket-title {
   border-radius: 10px 10px 0 0;
   display: flex;
   justify-content: space-between;
@@ -27,7 +28,7 @@
   padding: 32px 32px 27px 20px;
   font-size: 32px;
   font-weight: 700;
-}
+} */
 
 .Basket-list {
   margin: 70px 0;
@@ -36,13 +37,13 @@
 .Basket-price {
   display: flex;
   justify-content: flex-end;
-  padding: 19px 120px;
+  padding: 19px 110px;
   font-weight: 700;
 }
 
 .Basket-price p:last-child {
   display: flex;
-  width: 95px;
+  width: 100px;
   justify-content: flex-end;
   white-space: noWrap;
 }

@@ -9,9 +9,9 @@ function Item(props) {
     onClick: () => {
       props.onSelect(props.item.code);      
     },
-    onAdd: (e) => {      
+    onHandle: (e) => {      
       e.stopPropagation();
-      props.onAddBasket(props.item);
+      props.onHandleBasket(props.item);
 
     }
   }
@@ -25,8 +25,9 @@ function Item(props) {
       </div>
       <div className='Item-actions'>
         <div className='Item-price'>{formatter.format(props.item.price)} </div>
-        <button onClick={callbacks.onAdd}>
-          Добавить
+        {props.item.count && <div className='Item-count'>{props.item.count} шт</div>}        
+        <button onClick={callbacks.onHandle}>
+          {props.buttonText}
         </button>
       </div>
     </div>

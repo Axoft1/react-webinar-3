@@ -4,6 +4,7 @@ import Controls from "./components/controls";
 import Basket from "./components/basket";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -15,6 +16,7 @@ function App({ store }) {
   const list = store.getState().list;
   const basket = store.getState().basket;
   const totalPrice = store.getPrice()
+  const count = store.getCount()
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
@@ -38,16 +40,19 @@ function App({ store }) {
   }
 
   return (
-    <PageLayout>
-      <Head title='Магазин' />
-      {show && 
-        <Basket totalPrice={totalPrice} basket={basket} onShow={callbacks.onShow} onDeleteItem={callbacks.onDeleteItem}>DIV</Basket>
-      }
-      <Controls totalPrice={totalPrice} basket={basket} onShow={callbacks.onShow} />
-      <List list={list}
-        onAddBasket={callbacks.onAddBasket}
-        onSelectItem={callbacks.onSelectItem} />
-    </PageLayout>
+    <>
+      <Modal show={show} onShow={callbacks.onShow} title={"Корзина"}>
+        <Basket totalPrice={totalPrice} basket={basket} onShow={callbacks.onShow} onHandleBasket={callbacks.onDeleteItem}></Basket>
+      </Modal>
+      <PageLayout>
+        <Head title='Магазин' />
+        <Controls totalPrice={totalPrice} basket={basket} onShow={callbacks.onShow} count={count} />
+        <List list={list}
+          onHandleBasket={callbacks.onAddBasket}
+          onSelectItem={callbacks.onSelectItem}
+          buttonText='Добавить' />
+      </PageLayout>
+    </>
   );
 }
 

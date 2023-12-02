@@ -8,6 +8,7 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
     this.sum = 0;
+    this.count = 0;
   }
   /**
    * Подписка слушателя на изменения состояния
@@ -36,6 +37,14 @@ class Store {
     */
   getPrice() {
     return this.sum;
+  }
+
+  /**
+       * Получить количество товаров
+       * @returns {Number}
+      */
+  getCount() {
+    return this.count
   }
 
   /**
@@ -69,14 +78,17 @@ class Store {
       this.setState({
         ...this.state,
         basket: this.state.basket.map(item => {
-          if (item.code == carrent.code){    
-            return {...item,         
-            count: item.count+1}
+          if (item.code == carrent.code) {
+            return {
+              ...item,
+              count: item.count + 1
+            }
           }
           return item
-        } )        
+        })
       })
     } else {
+      this.count += 1
       this.setState({
         ...this.state,
         basket: [...this.state.basket, {
@@ -84,23 +96,20 @@ class Store {
         }]
       })
     }
-
-
   };
 
   /**
    * Удаление из корзины по коду
    * @param code
    */
-  deleteItem(code) {
-    const [item] = this.state.basket.filter((item) => item.code === code);
+  deleteItem(value) {
+    const [item] = this.state.basket.filter((item) => item.code === value.code);
     this.sum -= item.price * item.count;
-
+    this.count -= 1
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      basket: this.state.basket.filter(item => item.code !== code)
-      // basket: this.state.basket.filter(item => item.count > 1 ?item.count -= 1 : item.code !== code)
+      basket: this.state.basket.filter(item => item.code !== value.code)
     })
   };
 
@@ -117,7 +126,6 @@ class Store {
           return {
             ...item,
             selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
           };
         }
         // Сброс выделения если выделена

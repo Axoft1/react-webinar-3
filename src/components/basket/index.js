@@ -1,32 +1,25 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import ItemBasket from '../itemBasket'
 import './style.css';
-import {formatter} from '../../utils'
+import { formatter } from '../../utils'
+import List from "../list";
 
-function Basket({ basket, onShow, onDeleteItem, totalPrice }) {
+function Basket({ basket, onHandleBasket, totalPrice }) {
 
     return (
-        <div className='Basket'>
-            <div className='Basket-wrapper'>
-                <div className='Basket-title'>Корзина<button onClick={() => onShow()}>Закрыть</button>
+        <div className='Basket-list'>
+            {basket.length ? <>
+                <List list={basket}
+                    onHandleBasket={onHandleBasket}                
+                    buttonText='Удалить'
+                />
+                <div className='Basket-price'>
+                    <p>Итого</p>
+                    <p>{formatter.format(totalPrice)}</p>
                 </div>
-                <div className='Basket-list'>
-                    {basket.length ? <>
-                    {basket.map((e) =>
-                        <div className='Basket-item' key={e.code}>
-                        <ItemBasket item={e} onDeleteItem={onDeleteItem}  />
-                        </div>
-                        )}
-                        <div className='Basket-price'>
-                        <p>Итого</p>  
-                            <p>{formatter.format(totalPrice)};</p>                        
-                    </div>
-                        </>
-                    :
-                        <div className='Basket-void'>Корзина пуста</div>}
-                </div>
-            </div>
+            </>
+                :
+                <div className='Basket-void'>Корзина пуста</div>}
         </div>
     )
 }

@@ -6,3 +6,6 @@
   font-size: 18px;
   font-weight: 400;
 }
+.Controls button{
+  min-width: 80px;
+}

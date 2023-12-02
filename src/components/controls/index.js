@@ -4,12 +4,12 @@ import './style.css';
 import { plural } from "../../utils";
 import { formatter } from '../../utils'
 
-function Controls({ basket, onShow, totalPrice }) {
+function Controls({ basket, onShow, totalPrice, count }) {
 
   return (
     <div className='Controls'>
       <div className='Controls-title'>
-        {basket.length ? <>В корзине: <b>{`${basket.length}  ${plural(basket.length, {
+        {basket.length ? <>В корзине: <b>{`${count}  ${plural(count, {
           one: 'товар',
           few: 'товара',
           many: 'товаров'
