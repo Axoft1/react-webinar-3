@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
+import { formatter } from '../../utils'
 
 function ItemBasket(props) {
   const callbacks = {
@@ -17,7 +18,7 @@ function ItemBasket(props) {
       </div>
       <div className='ItemBasket-info'>
 
-        <div className='ItemBasket-price'>{`${props.item.price}`} &#8381;</div>
+        <div className='ItemBasket-price'>{formatter.format(props.item.price)}</div>
         <div className='ItemBasket-count'>{`${props.item.count}`} шт</div>
       </div>
       <div className='ItemBasket-actions'>

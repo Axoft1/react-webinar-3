@@ -35,7 +35,6 @@ class Store {
      * @returns {Number}
     */
   getPrice() {
-    console.log(this.state.basket);
     return Object.keys(this.state.basket).reduce((previos, key) => { return previos + this.state.basket[key].price * this.state.basket[key].count }, 0)
   }
 

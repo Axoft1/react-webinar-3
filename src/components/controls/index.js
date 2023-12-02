@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 import { plural } from "../../utils";
+import { formatter } from '../../utils'
 
 function Controls({ basket, onShow, totalPrice }) {
 
@@ -12,7 +13,7 @@ function Controls({ basket, onShow, totalPrice }) {
           one: 'товар',
           few: 'товара',
           many: 'товаров'
-        })} / ${totalPrice}`} &#8381; </b> </> : <>В корзине: <b>пусто</b></>}
+        })} / ${formatter.format(totalPrice)}`} </b> </> : <>В корзине: <b>пусто</b></>}
       </div>
 
       <button onClick={() => onShow()}>Перейти</button>

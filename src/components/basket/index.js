@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import ItemBasket from '../itemBasket'
 import './style.css';
+import {formatter} from '../../utils'
 
 function Basket({ basket, onShow, onDeleteItem, totalPrice }) {
 
@@ -18,8 +19,8 @@ function Basket({ basket, onShow, onDeleteItem, totalPrice }) {
                         </div>
                         )}
                         <div className='Basket-price'>
-                        <p>Итого:</p>  
-                            <p>{totalPrice} &#8381;</p>                        
+                        <p>Итого</p>  
+                            <p>{formatter.format(totalPrice)};</p>                        
                     </div>
                         </>
                     :

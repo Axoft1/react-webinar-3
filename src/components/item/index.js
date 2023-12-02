@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 import './style.css';
+import { formatter } from '../../utils'
 
 function Item(props) {
 
@@ -23,7 +24,7 @@ function Item(props) {
         {props.item.title}
       </div>
       <div className='Item-actions'>
-        <div className='Item-price'>{props.item.price} &#8381;</div>
+        <div className='Item-price'>{formatter.format(props.item.price)} </div>
         <button onClick={callbacks.onAdd}>
           Добавить
         </button>
