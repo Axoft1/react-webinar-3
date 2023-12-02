@@ -7,7 +7,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-
+    this.sum = 0;
   }
   /**
    * Подписка слушателя на изменения состояния
@@ -35,7 +35,7 @@ class Store {
      * @returns {Number}
     */
   getPrice() {
-    return Object.keys(this.state.basket).reduce((previos, key) => { return previos + this.state.basket[key].price * this.state.basket[key].count }, 0)
+    return this.sum;
   }
 
   /**
@@ -64,6 +64,7 @@ class Store {
    */
   addBasket(item) {
     const carrent = this.state.basket.find(i => i.code === item.code)
+    this.sum += item.price;
     if (carrent) {
       this.setState({
         ...this.state,
@@ -92,6 +93,9 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const [item] = this.state.basket.filter((item) => item.code === code);
+    this.sum -= item.price * item.count;
+
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
