@@ -32,17 +32,17 @@ class Store {
   }
 
   /**
-     * Получить итоговую цену
-     * @returns {Number}
-    */
+    * Получить итоговую цену
+    * @returns {Number}
+  */
   getPrice() {
     return this.sum;
   }
 
   /**
-       * Получить количество товаров
-       * @returns {Number}
-      */
+    * Получить количество товаров
+    * @returns {Number}
+  */
   getCount() {
     return this.count
   }
@@ -59,7 +59,7 @@ class Store {
 
   /**
    * Добавление новой записи
-   */
+  */
   addItem() {
     this.setState({
       ...this.state,
@@ -70,7 +70,7 @@ class Store {
   /**
    * Добавление в корзину
    * @param item
-   */
+  */
   addBasket(item) {
     const carrent = this.state.basket.find(i => i.code === item.code)
     this.sum += item.price;
@@ -88,35 +88,37 @@ class Store {
         })
       })
     } else {
-      this.count += 1
       this.setState({
         ...this.state,
         basket: [...this.state.basket, {
           code: item.code, price: item.price, title: item.title, count: 1
         }]
       })
+      // Увеличиваем колличество товаров в корзине
+      // Сделал упрощенно, можно выполнить через length или перебором this.state.basket
+      this.count += 1
     }
   };
 
   /**
    * Удаление из корзины по коду
    * @param code
-   */
+  */
   deleteItem(value) {
     const [item] = this.state.basket.filter((item) => item.code === value.code);
-    this.sum -= item.price * item.count;
-    this.count -= 1
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
       basket: this.state.basket.filter(item => item.code !== value.code)
     })
+    this.sum -= item.price * item.count;
+    this.count -= 1
   };
 
   /**
    * Выделение записи по коду
    * @param code
-   */
+  */
   selectItem(code) {
     this.setState({
       ...this.state,
