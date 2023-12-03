@@ -41,11 +41,11 @@ function App({ store }) {
 
   return (
     <>
-      <Modal show={show} onShow={callbacks.onShow} title={"Корзина"}>
-        <Basket totalPrice={totalPrice} basket={basket} onShow={callbacks.onShow} onHandleBasket={callbacks.onDeleteItem}></Basket>
-      </Modal>
       <PageLayout>
         <Head title='Магазин' />
+        <Modal show={show} onShow={callbacks.onShow} title={"Корзина"}>
+          <Basket totalPrice={totalPrice} basket={basket} onShow={callbacks.onShow} onHandleBasket={callbacks.onDeleteItem}></Basket>
+        </Modal>
         <Controls totalPrice={totalPrice} basket={basket} onShow={callbacks.onShow} count={count} />
         <List list={list}
           onHandleBasket={callbacks.onAddBasket}
