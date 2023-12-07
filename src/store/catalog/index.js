@@ -1,5 +1,6 @@
 import {codeGenerator} from "../../utils";
 import StoreModule from "../module";
+import { getPageCount } from "../../utils";
 
 class Catalog extends StoreModule {
 
@@ -13,13 +14,14 @@ class Catalog extends StoreModule {
       list: []
     }
   }
-
-  async load() {
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+  //http://example.front.ylab.io/api/v1/articles?limit=10&skip=20
+  async load(limit, skip ) {
+    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id, title, price),count`);
+    const json = await response.json();    
     this.setState({
       ...this.getState(),
-      list: json.result.items
+      list: json.result.items,
+      count: json.result.count
     }, 'Загружены товары из АПИ');
   }
 }

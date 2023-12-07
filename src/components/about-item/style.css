@@ -1,0 +1,14 @@
+.AboutItem{
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    font-size: 18px;
+}
+.AboutItem span{
+    font-weight: 700;
+}
+.AboutItem-price{
+    font-size: 24px;
+}
