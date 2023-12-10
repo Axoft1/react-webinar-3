@@ -2,6 +2,7 @@ import {memo} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
+import Language from "../language";
 
 function PageLayout({head, footer, children}) {
 
@@ -9,6 +10,7 @@ function PageLayout({head, footer, children}) {
 
   return (
     <div className={cn()}>
+      <Language />
       <div className={cn('head')}>
         {head}
       </div>

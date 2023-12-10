@@ -21,7 +21,8 @@ function Main() {
     list: state.catalog.list,
     count: state.catalog.count,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    lg: state.languages.translation,
   }));
 
   useEffect(() => {
@@ -33,7 +34,8 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    getPage: useCallback((e) => setSkip(e), [skip])
+    // Получить страницу
+    getPage: useCallback((e) => setSkip(e), [skip]),    
   }
 
   const renders = {
@@ -44,7 +46,9 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title='Магазин' />
+
+      <Head title={`${select.lg.shop}`}/>
+      
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
         sum={select.sum} />
       <List list={select.list} renderItem={renders.item} />

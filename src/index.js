@@ -13,8 +13,8 @@ const root = createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <StoreContext.Provider value={store}>
-      {/* <App /> */}
-      <AppRouter/>
+      <App />
+      {/* <AppRouter/> */}
     </StoreContext.Provider>
   </BrowserRouter>
 );
