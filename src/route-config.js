@@ -1,6 +1,6 @@
-import Main from "./app/main"
 import About from "./app/adout"
 import NotFound from "./app/not-found"
+import App from "./app"
 
 export const RoutePath = {
     main: '/',
@@ -9,7 +9,7 @@ export const RoutePath = {
 }
 
 export const routeConfig = {
-    main: { path: RoutePath.main, element: <Main /> },
+    main: { path: RoutePath.main, element: <App /> },
     aboutId: { path: RoutePath.aboutId, element: <About /> },
     notFound: {
         path: RoutePath.notFound, element: <NotFound />
