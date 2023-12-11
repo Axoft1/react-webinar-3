@@ -1,19 +1,17 @@
 import { cn as bem } from "@bem-react/classname";
 import './style.css'
-import useSelector from "../../store/use-selector";
 import { Link } from "react-router-dom";
+import useLanguage from "../../utils/useLanguage";
 
 function Navigation() {
     const cn = bem('Navigation');
-    const select = useSelector(state => ({
-        lg: state.languages.translation,
-    }));
+    const t = useLanguage('lg')
     return (
         <>
             <nav className={cn()}>
                 <ol>
                     <li>
-                        <Link className={cn('link')} to="/">{`${select.lg.main}`}</Link>
+                        <Link className={cn('link')} to="/">{t('main')}</Link>
                     </li>
                 </ol>
             </nav>

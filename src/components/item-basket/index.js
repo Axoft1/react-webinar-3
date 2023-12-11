@@ -1,18 +1,16 @@
-import {memo, useCallback} from 'react';
+import { memo, useCallback } from 'react';
 import propTypes from 'prop-types';
-import {numberFormat} from "../../utils";
-import {cn as bem} from "@bem-react/classname";
+import { numberFormat } from "../../utils/utils";
+import { cn as bem } from "@bem-react/classname";
 import PropTypes from "prop-types";
 import './style.css';
 import { Link } from 'react-router-dom';
-import useSelector from '../../store/use-selector';
+import useLanguage from '../../utils/useLanguage';
 
 function ItemBasket(props) {
 
   const cn = bem('ItemBasket');
-  const select = useSelector(state => ({
-    lg: state.languages.translation,
-  }));
+  const t = useLanguage('lg')
   const callbacks = {
     onRemove: (e) => props.onRemove(props.item._id),
     onClose: () => props.onClose()
@@ -26,7 +24,7 @@ function ItemBasket(props) {
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>{`${select.lg.delete}`}</button>
+          <button onClick={callbacks.onRemove}>{t('delete')}</button>
         </div>
       </div>
     </div>
@@ -44,7 +42,7 @@ ItemBasket.propTypes = {
 }
 
 ItemBasket.defaultProps = {
-  onRemove: () => {},
+  onRemove: () => { },
 }
 
 export default memo(ItemBasket);

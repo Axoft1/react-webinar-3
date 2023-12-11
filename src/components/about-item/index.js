@@ -1,15 +1,13 @@
-import { numberFormat } from "../../utils";
 import PropTypes from "prop-types";
 import { cn as bem } from '@bem-react/classname';
 import './style.css'
-import useSelector from "../../store/use-selector";
 import Controls from "../controls";
+import { numberFormat } from "../../utils/utils";
+import useLanguage from "../../utils/useLanguage";
 
 function AboutItem(props) {
     const cn = bem('AboutItem');
-    const select = useSelector(state => ({
-        lg: state.languages.translation,
-    }));
+    const t = useLanguage('lg')
     const callbacks = {
         onAdd: (e) => {
             props.onAdd(props.product._id)
@@ -19,11 +17,11 @@ function AboutItem(props) {
 
         <div className={cn()}>
             <div className={cn('description')}>{props.product.description}</div>
-            <div className={cn('country')}>{`${select.lg.country_of_origin}:`} <span>{props.product.madeIn?.title} ({props.product.madeIn?.code})</span></div>
-            <div className={cn('category')}>{`${select.lg.category}:`} <span>{props.product.category?.title}</span></div>
-            <div className={cn('edition')}>{`${select.lg.year_of_release}:`} <span>{props.product.edition}</span></div>
+            <div className={cn('country')}>{t('country_of_origin')}: <span>{props.product.madeIn?.title} ({props.product.madeIn?.code})</span></div>
+            <div className={cn('category')}>{t('category')}: <span>{props.product.category?.title}</span></div>
+            <div className={cn('edition')}>{t('year_of_release')}: <span>{props.product.edition}</span></div>
             <span className={cn('price')}>
-                {`${select.lg.price}:`} {numberFormat(props.product.price)} ₽
+                {t('price')}: {numberFormat(props.product.price)} ₽
             </span>
             <Controls onAdd={callbacks.onAdd}/>
         </div>

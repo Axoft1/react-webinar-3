@@ -1,32 +1,32 @@
+import useSelector from "../../store/use-selector";
+import Navigation from "../navigation";
 import { memo } from "react";
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import { numberFormat, plural } from "../../utils";
+import { numberFormat, plural } from "../../utils/utils";
 import './style.css';
-import useSelector from "../../store/use-selector";
-import Navigation from "../navigation";
+import useLanguage from "../../utils/useLanguage";
 
 function BasketTool({ sum, amount, onOpen }) {
   const cn = bem('BasketTool');
-  const select = useSelector(state => ({
-    lg: state.languages.translation,
-  }));
+  const t = useLanguage('lg')
+
   return (
     <div className={cn()}>
       <Navigation/>
       <div>
-        <span className={cn('label')}>{`${select.lg.in_a_basket}:`}</span>
+        <span className={cn('label')}>{t('in_a_basket')}: </span>
         <span className={cn('total')}>
           {amount
             ? `${amount} ${plural(amount, {
-              one: `${select.lg.product}`,
-              few: `${select.lg.the_product}`,
-              many: `${select.lg.products}`
+              one: t('product'),
+              few: t('the_product'),
+              many: t('products')
             })} / ${numberFormat(sum)} ₽`
-            : `${select.lg.empty}`
+            : t('empty')
           }
         </span>
-        <button onClick={onOpen}>{`${select.lg.go_over}`}</button>
+        <button onClick={onOpen}>{t('go_over')}</button>
       </div>
     </div>
   );

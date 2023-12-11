@@ -1,15 +1,13 @@
 import {memo} from "react";
 import PropTypes from 'prop-types';
 import './style.css';
-import useSelector from "../../store/use-selector";
+import useLanguage from "../../utils/useLanguage";
 
 function Controls({onAdd}) {
-  const select = useSelector(state => ({
-    lg: state.languages.translation,
-  }));
+  const t = useLanguage('lg')
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>{`${select.lg.add}`}</button>
+      <button onClick={() => onAdd()}>{t('add')}</button>
     </div>
   )
 }
