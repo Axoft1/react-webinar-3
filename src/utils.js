@@ -27,9 +27,103 @@ export function codeGenerator(start = 0) {
 /**
  * Форматирование разрядов числа
  * @param value {Number}
+ * @param locale {String}
  * @param options {Object}
  * @returns {String}
  */
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
+}
+
+/**
+ * Формирование массива Options из Map
+ * @param map {Map | undefined}
+ * @param out {Array}
+ * @param key {null | string}
+ * @param indent {Number}
+ */
+export function makeOptionsArrayFromMap(map, out = [], key = null, indent = 0) {
+  if (!map.size) {
+    return out
+  }
+  for (const item of map.get(key)) {
+    out.push({ value: item._id, title: '- '.repeat(indent) + item.title });
+    if (map.has(item._id)) {
+      makeOptionsArrayFromMap(map, out, item._id, indent + 1)
+    }
+  }
+  return out;
+}
+
+/**
+ * Получить куки документа по имени куки
+ * @param cname {string}
+ * @returns {string}
+ */
+export function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) === ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) === 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+function setCookie(name, value, options = {}) {
+
+  options = {
+    path: '/',
+    ...options
+  };
+
+  if (options.expires instanceof Date) {
+    options.expires = options.expires.toUTCString();
+  }
+
+  let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+  for (let optionKey in options) {
+    updatedCookie += "; " + optionKey;
+    let optionValue = options[optionKey];
+    if (optionValue !== true) {
+      updatedCookie += "=" + optionValue;
+    }
+  }
+
+  document.cookie = updatedCookie;
+}
+
+/**
+ * Удаление куки
+ * @param name {string}
+ */
+export function deleteCookie(name) {
+  setCookie(name, "", {
+    'max-age': -1
+  })
+}
+
+export function buildTree(array) {
+  const map = new Map(array.map(item => [item._id, { value: item._id, title: item.title, parent: item.parent, children: item.children }]));
+  // console.log(array);
+
+  for (let item of map.values()) {
+    if (!item.parent || !map.has(item.parent._id)) {
+      continue;
+    }
+    // console.log(item);
+
+    const parent = map.get(item.parent._id);
+
+    parent.children = [...parent.children || [], item];
+  }
+
+  return [...map.values()].filter(item => !item.parent);
 }

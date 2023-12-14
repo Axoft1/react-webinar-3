@@ -1,0 +1,13 @@
+.UserContainer {
+    max-width: 1024px;
+    margin: 0 auto;
+    background: #fff;
+    box-sizing: border-box;
+    border-bottom: solid #DCDCDC 1px;
+}
+
+.UserContainer-profile {
+    display: inline-block;
+    font-size: 13px;
+    margin-inline-end: 20px;
+}

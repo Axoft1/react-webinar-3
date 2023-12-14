@@ -1,0 +1,32 @@
+.AuthForm {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 20px;
+    align-items: start;
+}
+
+.AuthForm-title {
+    font-size: 24px;
+    line-height: 27.6px;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.AuthForm-label {
+    font-size: 16px;
+    line-height: 18.4px;
+    font-weight: 400;
+    margin: 20px 0 0 0;
+}
+
+.AuthForm-button {
+    margin: 18px 0 0 0;
+}
+
+.AuthForm-error {
+    margin: 20px 0 0 0;
+    font-size: 16px;
+    line-height: 18.4px;
+    font-weight: 400;
+    color: #FF0000;
+}

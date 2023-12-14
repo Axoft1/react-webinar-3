@@ -1,0 +1,12 @@
+.AuthForm {
+    padding-inline: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px
+}
+
+.AuthForm-error {
+    margin: 0;
+    color: #FF0000;
+}
